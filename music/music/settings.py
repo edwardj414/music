@@ -24,7 +24,7 @@ APPEND_SLASH=False
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-g&k_nqd+lkd4a65*0lr^2-_dhl(4qb9^=o3j4o*mpn6g0w6c#o'
-
+AES_KEY = '_fLzsvvDl4-iCPA3fALvgBh7u0Yzm69WfTQH0cOoCNk='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -59,8 +59,12 @@ MIDDLEWARE = [
 
 REST_FRAMEWORK ={
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+        'users.authentication.AESAuthentication',
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'users.renderers.AESEncryptionRenderer', # Adds encryption to all responses
+        'rest_framework.renderers.JSONRenderer',   # Fallback
+    ),
 }
 
 AUTH_USER_MODEL = "users.CusUser"
